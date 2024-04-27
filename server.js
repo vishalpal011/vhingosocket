@@ -45,11 +45,11 @@ io.on('connection', (socket) => {
         const room = btnKaMsg.room;
         const longitude = btnKaMsg.location.longitude;
         const latitude = btnKaMsg.location.latitude;
-        const trackingStatus = btnKaMsg.status;
+        const tracking_status = btnKaMsg.status;
 
         try {
             const updateQuery = "UPDATE vendorlocations SET latitude = ?, longitude = ?, tracking_status = ? WHERE vendor_id = ?";
-            const result = await query(updateQuery, [latitude, longitude, trackingStatus, room]);
+            const result = await query(updateQuery, [latitude, longitude, tracking_status, room]);
             console.log("result update successfully");
         } catch (e) {
             console.log("error", e);
