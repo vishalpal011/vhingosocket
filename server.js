@@ -4,7 +4,7 @@ import db, { query } from "./db.js";
 import express from "express";
 import { Server } from 'socket.io';
 const app = express();
-const port = 4000;
+const port = 55000;
 const wifiIp = "192.168.1.4"
 var server = app.listen(port, () => {
     console.log(`Server is running ${port}`);
