@@ -100,7 +100,7 @@ io.on('connection', (socket) => {
     const user_id = btnKaMsg.user_id;
     const admin_id = btnKaMsg.admin_id;
     const vendor_id = btnKaMsg?.vendor_id;
-    const sendername = btnKaMsg.sendername;
+    const sendername = btnKaMsg.senderName;
     const message = btnKaMsg.message;
     
     console.log("vendorId", vendor_id);
@@ -125,9 +125,9 @@ io.on('connection', (socket) => {
     // }
 
     console.log("location", btnKaMsg);
-    console.log(btnKaMsg.sendername === "USER");
+    console.log(btnKaMsg.senderName === "USER");
 
-    if (btnKaMsg.sendername === "ADMIN") {
+    if (btnKaMsg.senderName === "ADMIN") {
         if (btnKaMsg?.vendor_id) {
             socket.in(vendor_id).emit("message received", btnKaMsg);
             socket.in(vendor_id).emit("getmessage", btnKaMsg);
@@ -137,7 +137,7 @@ io.on('connection', (socket) => {
         }
     }
 
-    if (btnKaMsg.sendername === "USER" || btnKaMsg.sendername === "VENDOR") {
+    if (btnKaMsg.senderName === "USER" || btnKaMsg.senderName === "VENDOR") {
         console.log("adminId", admin_id);
         socket.in(admin_id).emit("message received", btnKaMsg);
         socket.in(admin_id).emit("getmessage", btnKaMsg);
