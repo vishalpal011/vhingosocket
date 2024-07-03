@@ -10,7 +10,7 @@ import mysql from 'mysql';
 
 const db = mysql.createConnection({
   host: '51.79.204.225',
-  port : 3306,
+  port : 443,
   user: 'blivmi_socket',
   password: '123@socket',
   database: 'blivmi_crm',
