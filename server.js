@@ -128,20 +128,25 @@ io.on('connection', (socket) => {
     console.log(btnKaMsg.senderName === "USER");
 
     if (btnKaMsg.senderName === "ADMIN") {
-        if (btnKaMsg?.vendor_id) {
-            socket.in(vendor_id).emit("message received", btnKaMsg);
-            socket.in(vendor_id).emit("getmessage", btnKaMsg);
-        } else {
-            socket.in(user_id).emit("message received", btnKaMsg);
-            socket.in(user_id).emit("getmessage", btnKaMsg);
-        }
+         socket.in(room_id).emit("message received", btnKaMsg);
+        
+        // if (btnKaMsg?.vendor_id) {
+        //     socket.in(vendor_id).emit("message received", btnKaMsg);
+        //     socket.in(vendor_id).emit("getmessage", btnKaMsg);
+        // } else {
+        //     socket.in(user_id).emit("message received", btnKaMsg);
+        //     socket.in(user_id).emit("getmessage", btnKaMsg);
+        // }
+    }else
+    {
+        socket.in(room_id).emit("getmessage", btnKaMsg);
     }
 
-    if (btnKaMsg.senderName === "USER" || btnKaMsg.senderName === "VENDOR") {
-        console.log("adminId", admin_id);
-        socket.in(admin_id).emit("message received", btnKaMsg);
-        socket.in(admin_id).emit("getmessage", btnKaMsg);
-    }
+    // if (btnKaMsg.senderName === "USER" || btnKaMsg.senderName === "VENDOR") {
+    //     console.log("adminId", admin_id);
+    //     socket.in(admin_id).emit("message received", btnKaMsg);
+    //     socket.in(admin_id).emit("getmessage", btnKaMsg);
+    // }
 });
 
 // Example query function with error handling
