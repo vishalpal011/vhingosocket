@@ -40,28 +40,6 @@ io.on('connection', (socket) => {
     console.log("user is comming");
     socket.emit("userConnected", "Connected Successfully");
 
-    //update code for
-    socket.on("tracking", async (btnKaMsg) => {
-        const room = btnKaMsg.room;
-        const longitude = btnKaMsg.location.longitude;
-        const latitude = btnKaMsg.location.latitude;
-        const tracking_status = btnKaMsg.status;
-
-        try {
-            const updateQuery = "UPDATE vendorlocations SET latitude = ?, longitude = ?, tracking_status = ? WHERE vendor_id = ?";
-            const result = await query(updateQuery, [latitude, longitude, tracking_status, room]);
-            console.log("result update successfully");
-        } catch (e) {
-            console.log("error", e);
-        }
-
-        socket.join(room);
-        socket.emit("room connected", "Ho gaya room connection");
-        console.log("location", btnKaMsg);
-        socket.to(room).emit("message received", btnKaMsg);
-        io.to(room).emit("track location", btnKaMsg);
-    });
-
     //for chats
     socket.on("setup", (socketId) => {
         console.log("setup userId", socketId);
@@ -82,13 +60,13 @@ io.on('connection', (socket) => {
         socket.join(room);
         try {
             if (user_id) {
-                const values = [user_id,message,time,+admin_id,sendername];
-                const insertQuery = 'INSERT INTO chats (user_id, message, time,admin_id,sendername ) VALUES (?, ?, ?,?,?)';
+                const values = [user_id,message,+admin_id,sendername];
+                const insertQuery = 'INSERT INTO chats (user_id, message, admin_id,sendername ) VALUES (?, ?,?,?)';
                 const result = await query(insertQuery,values);
                 console.log("result message add successfully");  
             }else{
-                const values = [vendor_id,message,time,+admin_id,sendername];
-                const insertQuery = 'INSERT INTO chats (vendor_id, message, time,admin_id,sendername ) VALUES (?, ?, ?,?,?)';
+                const values = [vendor_id,message,+admin_id,sendername];
+                const insertQuery = 'INSERT INTO chats (vendor_id, message, time,admin_id,sendername ) VALUES (?, ?, ?,?)';
                 const result = await query(insertQuery,values);
                 console.log("result message add successfully");
             }
@@ -121,14 +99,3 @@ io.on('connection', (socket) => {
         console.log('Disconnect');
     });
 });
-
-
-// query(querydata, [latitude, longitude, btnKaMsg.room], (err, result) => {
-//     console.log("error", err);
-//     console.log("response", result);
-//     // if (err) {
-//     //     console.error('Error updating vendor location:', err);
-//     //     return;
-//     // }
-//     // console.log('Vendor location updated successfully');
-// });
