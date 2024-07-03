@@ -49,11 +49,11 @@ io.on('connection', (socket) => {
     })
 
     socket.on("sendmessage", async (btnKaMsg) => {
-        const room = btnKaMsg.room;
+        const room_id = btnKaMsg.room_id;
         const user_id = btnKaMsg.user_id;
         const admin_id = btnKaMsg.admin_id;
         const vendor_id = btnKaMsg?.vendor_id;
-        const time = btnKaMsg.time;
+       // const time = btnKaMsg.time;
         const sendername = btnKaMsg.senderName;
         const message = btnKaMsg.message;
         console.log("vendorId", vendor_id);
@@ -61,12 +61,12 @@ io.on('connection', (socket) => {
         try {
             if (user_id) {
                 const values = [user_id,message,+admin_id,sendername];
-                const insertQuery = 'INSERT INTO chats (user_id, message, admin_id,sendername ) VALUES (?, ?,?,?)';
+                const insertQuery = 'INSERT INTO chats (room_id user_id, message, admin_id,sendername ) VALUES (?, ?,?,?)';
                 const result = await query(insertQuery,values);
                 console.log("result message add successfully");  
             }else{
                 const values = [vendor_id,message,+admin_id,sendername];
-                const insertQuery = 'INSERT INTO chats (vendor_id, message, time,admin_id,sendername ) VALUES (?, ?, ?,?)';
+                const insertQuery = 'INSERT INTO chats (room_id vendor_id, message, admin_id,sendername ) VALUES (?, ?, ?,?)';
                 const result = await query(insertQuery,values);
                 console.log("result message add successfully");
             }
