@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
         const admin_id = btnKaMsg.admin_id;
         const vendor_id = btnKaMsg?.vendor_id;
        // const time = btnKaMsg.time;
-        const sendername = btnKaMsg.senderName;
+        const sendername = btnKaMsg.sendername;
         const message = btnKaMsg.message;
         console.log("vendorId", vendor_id);
         socket.join(room);
