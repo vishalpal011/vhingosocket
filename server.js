@@ -115,7 +115,7 @@ io.on('connection', (socket) => {
    // console.log(btnKaMsg.senderName === "USER");
 
     // if (btnKaMsg.senderName === "ADMIN") {
-        socket.in(+room_id).emit("getmessage", btnKaMsg);
+        socket.in(room_id).emit("getmessage", btnKaMsg);
          
         
         // if (btnKaMsg?.vendor_id) {
