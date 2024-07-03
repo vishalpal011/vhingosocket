@@ -90,7 +90,7 @@ io.on('connection', (socket) => {
     const senderName = btnKaMsg.senderName;
     const message = btnKaMsg.message;
     
-    console.log("vendorId", vendor_id);
+   // console.log("vendorId", vendor_id);
     socket.join(room_id);
 
     // try {
@@ -112,10 +112,10 @@ io.on('connection', (socket) => {
     // }
 
     console.log("location", btnKaMsg);
-    console.log(btnKaMsg.senderName === "USER");
+   // console.log(btnKaMsg.senderName === "USER");
 
     // if (btnKaMsg.senderName === "ADMIN") {
-        socket.in(room_id).emit("getmessage", btnKaMsg);
+        socket.in(+room_id).emit("getmessage", btnKaMsg);
          
         
         // if (btnKaMsg?.vendor_id) {
