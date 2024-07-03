@@ -12,7 +12,7 @@ const db = mysql.createConnection({
   host: '51.79.204.225',
   port : 3306,
   user: 'blivmi_socket',
-  password: '123@crm',
+  password: '123crmsocket',
   database: 'blivmi_crm',
   connectTimeout: 20000
 });
