@@ -106,28 +106,28 @@ io.on('connection', (socket) => {
     console.log("vendorId", vendor_id);
     socket.join(room_id);
 
-    try {
-        // Ensure your query function is defined and properly handles the database connection
-        if (user_id) {
-            const values = [room_id, user_id, message, admin_id, sendername];
-            const insertQuery = 'INSERT INTO chats (room_id, user_id, message, admin_id, sendername) VALUES (?, ?, ?, ?, ?)';
-            const result = await query(insertQuery, values);
-            console.log("result message add successfully");  
-        } else {
-            const values = [room_id, vendor_id, message, admin_id, sendername];
-            const insertQuery = 'INSERT INTO chats (room_id, vendor_id, message, admin_id, sendername) VALUES (?, ?, ?, ?, ?)';
-            const result = await query(insertQuery, values);
-            console.log("result message add successfully");
-        }
-    } catch (e) {
-        console.log("error", e);
-        return;
-    }
+    // try {
+    //     // Ensure your query function is defined and properly handles the database connection
+    //     if (user_id) {
+    //         const values = [room_id, user_id, message, admin_id, sendername];
+    //         const insertQuery = 'INSERT INTO chats (room_id, user_id, message, admin_id, sendername) VALUES (?, ?, ?, ?, ?)';
+    //         const result = await query(insertQuery, values);
+    //         console.log("result message add successfully");  
+    //     } else {
+    //         const values = [room_id, vendor_id, message, admin_id, sendername];
+    //         const insertQuery = 'INSERT INTO chats (room_id, vendor_id, message, admin_id, sendername) VALUES (?, ?, ?, ?, ?)';
+    //         const result = await query(insertQuery, values);
+    //         console.log("result message add successfully");
+    //     }
+    // } catch (e) {
+    //     console.log("error", e);
+    //     return;
+    // }
 
     console.log("location", btnKaMsg);
-    console.log(btnKaMsg.senderName === "USER");
+    console.log(btnKaMsg.sendername === "USER");
 
-    if (btnKaMsg.senderName === "ADMIN") {
+    if (btnKaMsg.sendername === "ADMIN") {
         if (btnKaMsg?.vendor_id) {
             socket.in(vendor_id).emit("message received", btnKaMsg);
             socket.in(vendor_id).emit("getmessage", btnKaMsg);
@@ -137,7 +137,7 @@ io.on('connection', (socket) => {
         }
     }
 
-    if (btnKaMsg.senderName === "USER" || btnKaMsg.senderName === "VENDOR") {
+    if (btnKaMsg.sendername === "USER" || btnKaMsg.sendername === "VENDOR") {
         console.log("adminId", admin_id);
         socket.in(admin_id).emit("message received", btnKaMsg);
         socket.in(admin_id).emit("getmessage", btnKaMsg);
