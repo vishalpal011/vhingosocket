@@ -9,11 +9,11 @@ import mysql from 'mysql';
 // });
 
 const db = mysql.createConnection({
-  host: '93.127.185.122',
-  port : 3306,
-  user: 'vhingo_socket',
-  password: 'socket123',
-  database: 'vhingo_db',
+  host: '51.79.204.225',
+  port : 2083,
+  user: 'blivmi_socket',
+  password: 'Ppu9NPJGuFrh',
+  database: 'blivmi_crm',
   connectTimeout: 20000
 });
 
