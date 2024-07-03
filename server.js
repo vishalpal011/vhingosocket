@@ -90,16 +90,16 @@ io.on('connection', (socket) => {
         const senderName = btnKaMsg.senderName;
         const message = btnKaMsg.message;
 
-        socket.join(room_id, () => {
-            console.log("Joined room", room_id);
-            console.log("location", btnKaMsg);
+        // socket.join(room_id, () => {
+        //     console.log("Joined room", room_id);
+        //     console.log("location", btnKaMsg);
             
-            // Emit the message to the room after joining
-            socket.in(room_id).emit("getmessage", btnKaMsg);
-        });
+        //     // Emit the message to the room after joining
+        //     socket.in(room_id).emit("getmessage", btnKaMsg);
+        // });
     
-   // console.log("vendorId", vendor_id);
- //   socket.join(room_id);
+    console.log("vendorId", vendor_id);
+     socket.join(room_id);
 
     // try {
     //     // Ensure your query function is defined and properly handles the database connection
@@ -119,11 +119,11 @@ io.on('connection', (socket) => {
     //     return;
     // }
 
- //   console.log("location", btnKaMsg);
+  console.log("location", btnKaMsg);
    // console.log(btnKaMsg.senderName === "USER");
 
     // if (btnKaMsg.senderName === "ADMIN") {
-    //    socket.in(room_id).emit("getmessage", btnKaMsg);
+    socket.in(room_id).emit("getmessage", btnKaMsg);
          
         
         // if (btnKaMsg?.vendor_id) {
