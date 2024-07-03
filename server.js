@@ -16,20 +16,7 @@ app.get("/", (req, resp) => {
     resp.status(200).json("socket is running");
 })
 
-app.get("/api/data-fetch", async (req, resp) => {
-
-    let queryForFetch = "SELECT * FROM vendorlocations WHERE 1";
-    let response = await query(queryForFetch);
-    console.log("response", response);
-    resp.status(200).json(response);
-})
-
-app.post("/data-sent", async (req, resp) => {
-    let value = [12,"allGood",'4:24 PM',2,"USER"];
-    let queryData = 'INSERT INTO chats (user_id, message, time,admin_id,sendername ) VALUES (?, ?, ?,?,?)';
-    const result = await query(queryData,value);
-    console.log("result",result);
-})
+ 
 
 
 const io = new Server(server, {
