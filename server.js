@@ -37,11 +37,28 @@ io.on('connection', (socket) => {
     socket.on("sendmessage", async (btnKaMsg) => {
        const room_id = btnKaMsg.room_id;
        const user_id = btnKaMsg.user_id;
-       const admin_id = btnKaMsg.admin_id;
+      // const admin_id = btnKaMsg.admin_id;
        const vendor_id = btnKaMsg?.vendor_id;
        const senderName = btnKaMsg.senderName;
        const message = btnKaMsg.message;
 
+          try {
+            if (user_id) {
+                const values = [room_id,user_id,senderName,message];
+                const insertQuery = 'INSERT INTO chats (room_id,user_id,sendername,message) VALUES (?, ?, ?,?)';
+                const result = await query(insertQuery,values);
+                console.log("result message add successfully");  
+            }else{
+                const values = [room_id,vendor_id,senderName,message];
+                const insertQuery = 'INSERT INTO chats (room_id,vendor_id,sendername,message) VALUES (?, ?, ?,?)';
+                const result = await query(insertQuery,values);
+                console.log("result message add successfully");
+            }
+          
+        } catch (e) {
+            console.log("error", e);
+        } 
+     
       socket.in(room_id).emit("getmessage", btnKaMsg);
 
     });
