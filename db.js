@@ -11,8 +11,8 @@ import mysql from 'mysql';
 const db = mysql.createConnection({
   host: '51.79.204.225',
   port : 3306,
-  user: 'blivmi_socket',
-  password: '123crmsocket',
+  user: 'blivmi_crm',
+  password: 'cbuOcCCDowT4',
   database: 'blivmi_crm',
   connectTimeout: 20000
 });
