@@ -1,5 +1,6 @@
  
 import express from "express";
+import db, { query } from "./db.js";
 import { Server } from 'socket.io';
 const app = express();
 const port = 55000;
@@ -33,17 +34,17 @@ io.on('connection', (socket) => {
         console.log("connected User");
     })
 
-      socket.on("sendmessage", async (btnKaMsg) => {
-        const room_id = btnKaMsg.room_id;
-        const user_id = btnKaMsg.user_id;
-        const admin_id = btnKaMsg.admin_id;
-        const vendor_id = btnKaMsg?.vendor_id;
-        const senderName = btnKaMsg.senderName;
-        const message = btnKaMsg.message;
+    socket.on("sendmessage", async (btnKaMsg) => {
+       const room_id = btnKaMsg.room_id;
+       const user_id = btnKaMsg.user_id;
+       const admin_id = btnKaMsg.admin_id;
+       const vendor_id = btnKaMsg?.vendor_id;
+       const senderName = btnKaMsg.senderName;
+       const message = btnKaMsg.message;
 
-          socket.in(room_id).emit("getmessage", btnKaMsg);
+      socket.in(room_id).emit("getmessage", btnKaMsg);
 
-        });
+    });
 
     // socket.on("sendmessage", async (btnKaMsg) => {
     //     const room_id = btnKaMsg.room_id;
