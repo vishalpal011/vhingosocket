@@ -1,6 +1,4 @@
-// const express = require('express');
-
-import db, { query } from "./db.js";
+ 
 import express from "express";
 import { Server } from 'socket.io';
 const app = express();
@@ -28,12 +26,24 @@ io.on('connection', (socket) => {
     socket.emit("userConnected", "Connected Successfully");
 
     //for chats
-    socket.on("setup", (socketId) => {
-        console.log("setup userId", socketId);
-        socket.join(socketId);
-        socket.emit("connectedSocketId", socketId);
+    socket.on("setup", (room_id) => {
+        console.log("setup room_id", room_id);
+        socket.join(room_id);
+        socket.emit("connectedSocketId", room_id);
         console.log("connected User");
     })
+
+      socket.on("sendmessage", async (btnKaMsg) => {
+        const room_id = btnKaMsg.room_id;
+        const user_id = btnKaMsg.user_id;
+        const admin_id = btnKaMsg.admin_id;
+        const vendor_id = btnKaMsg?.vendor_id;
+        const senderName = btnKaMsg.senderName;
+        const message = btnKaMsg.message;
+
+          socket.in(room_id).emit("getmessage", btnKaMsg);
+
+        });
 
     // socket.on("sendmessage", async (btnKaMsg) => {
     //     const room_id = btnKaMsg.room_id;
@@ -82,13 +92,7 @@ io.on('connection', (socket) => {
     // });
 
 
-    socket.on("sendmessage", async (btnKaMsg) => {
-        const room_id = btnKaMsg.room_id;
-        const user_id = btnKaMsg.user_id;
-        const admin_id = btnKaMsg.admin_id;
-        const vendor_id = btnKaMsg?.vendor_id;
-        const senderName = btnKaMsg.senderName;
-        const message = btnKaMsg.message;
+  
 
         // socket.join(room_id, () => {
         //     console.log("Joined room", room_id);
@@ -98,8 +102,8 @@ io.on('connection', (socket) => {
         //     socket.in(room_id).emit("getmessage", btnKaMsg);
         // });
     
-    console.log("vendorId", vendor_id);
-     socket.join(room_id);
+    // console.log("vendorId", vendor_id);
+    //  socket.join(room_id);
 
     // try {
     //     // Ensure your query function is defined and properly handles the database connection
@@ -119,12 +123,12 @@ io.on('connection', (socket) => {
     //     return;
     // }
 
-  console.log("location", btnKaMsg);
+//  console.log("location", btnKaMsg);
    // console.log(btnKaMsg.senderName === "USER");
 
     // if (btnKaMsg.senderName === "ADMIN") {
-    socket.in(room_id).emit("message received", btnKaMsg);
-    socket.in(room_id).emit("getmessage", btnKaMsg);
+  //  socket.in(room_id).emit("message received", btnKaMsg);
+  
          
         
         // if (btnKaMsg?.vendor_id) {
@@ -143,7 +147,7 @@ io.on('connection', (socket) => {
     //     socket.in(admin_id).emit("message received", btnKaMsg);
     //     socket.in(admin_id).emit("getmessage", btnKaMsg);
     // }
-});
+
 
 // Example query function with error handling
 async function query(sql, params) {
