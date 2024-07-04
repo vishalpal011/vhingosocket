@@ -123,6 +123,7 @@ io.on('connection', (socket) => {
    // console.log(btnKaMsg.senderName === "USER");
 
     // if (btnKaMsg.senderName === "ADMIN") {
+    socket.in(room_id).emit("message received", btnKaMsg);
     socket.in(room_id).emit("getmessage", btnKaMsg);
          
         
